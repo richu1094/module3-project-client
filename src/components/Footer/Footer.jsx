@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import './Footer.css'
 
 const Footer = () => {

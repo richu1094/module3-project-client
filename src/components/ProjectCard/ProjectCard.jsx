@@ -1,4 +1,5 @@
 import { Button, Card } from 'react-bootstrap'
+import { Link } from "react-router-dom"
 
 const ProjectCard = ({ eachProject }) => {
     {
@@ -10,7 +11,7 @@ const ProjectCard = ({ eachProject }) => {
                     <Card.Text>
                         {eachProject.description}
                     </Card.Text>
-                    <Button variant="primary">Details</Button>
+                    <Link to={`project/${eachProject._id}`} className='btn btn-dark'>Details</Link>
                 </Card.Body>
                 <Card.Footer className="text-muted">{eachProject.createdAt}</Card.Footer>
             </Card>

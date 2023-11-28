@@ -9,6 +9,14 @@ class ProjectService {
     getProjects() {
         return this.api.get('/')
     }
+
+    getOneProject(id) {
+        return this.api.get(`/${id}`)
+    }
+
+    createProject(projectData) {
+        return this.api.post('/', projectData)
+    }
 }
 
 const projectService = new ProjectService()
