@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import projectService from "../services/projects.services"
+import projectService from "../../services/projects.services"
 import { useParams, Link } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap"
 

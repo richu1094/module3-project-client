@@ -1,21 +1,20 @@
-import { useContext, useState } from "react"
-import { Form, Button } from "react-bootstrap"
+import { useState } from "react"
+import { Form, Button, Row, Col } from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
 import projectService from "../../services/projects.services"
-import { AuthContext } from "../../contexts/auth.context";
 
 const NewProjectForm = () => {
 
     const navigate = useNavigate();
-    const { loggedUser } = useContext(AuthContext)
-
 
     //TO-DO: Harcodeado de momento
     const [projectData, setProjectData] = useState({
         title: '',
         description: '',
-        owner: loggedUser._id,
-        goal: 0
+        image: "",
+        goal: 0,
+        date: "",
+        category: ""
     })
 
     const handleInputChange = e => {
@@ -50,10 +49,41 @@ const NewProjectForm = () => {
                     <Form.Control type="text" value={projectData.description} name="description" onChange={handleInputChange} />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="goal">
-                    <Form.Label>Goal</Form.Label>
-                    <Form.Control type="number" value={projectData.goal} name="goal" onChange={handleInputChange} />
-                </Form.Group>
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="image">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control type="file" value={projectData.image} name="image" onChange={handleInputChange} />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="goal">
+                            <Form.Label>Goal</Form.Label>
+                            <Form.Control type="number" value={projectData.goal} name="goal" onChange={handleInputChange} />
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="date">
+                            <Form.Label>Limit Date</Form.Label>
+                            <Form.Control type="date" value={projectData.date} name="date" onChange={handleInputChange} />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="category">
+                            <Form.Label>Category</Form.Label>
+                            <Form.Select onChange={handleInputChange} name="category">
+                                <option value="Prueba">Prueba</option>
+                                <option value="Prueba">Prueba</option>
+                                <option value="Prueba">Prueba</option>
+                                <option value="Prueba">Prueba</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                </Row>
 
                 <div className="d-grid">
                     <Button variant="dark" type="submit">Create project</Button>

@@ -14,7 +14,10 @@ const Navigation = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link to={'/'} className='nav-link'>Home</Link>
-                        <Link to={'/project/create'} className='nav-link'>Create</Link>
+                        <Link to={'/discover'} className='nav-link'>Discover</Link>
+                        <Link to={'/project/create'} className='nav-link'>Create Project</Link>
+                        <Link to={'/category'} className='nav-link'>Category</Link>
+                        <Link to={'/category/create'} className='nav-link'>Create Category</Link>
                     </Nav>
                     <Navbar.Text className="justify-content-end">
                         {loggedUser && <Navbar.Text>¡Hola, {loggedUser.username}!</Navbar.Text>}
