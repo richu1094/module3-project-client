@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Container, Button, Card } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import ProjectService from '../../services/projects.services'
 import ProjectList from '../../components/ProjectList/ProjectList'
+import Loader from '../../components/Loader/Loader'
+import { Link } from 'react-router-dom'
 
 const DiscoverPage = () => {
 
@@ -13,23 +15,22 @@ const DiscoverPage = () => {
 
     const loadProjects = () => {
         ProjectService
-            .getProjects()
+            .getFeaturedProjects()
             .then(({ data }) => setProjects(data))
             .catch(err => console.log(err))
     }
 
     return (
-
         <div className="IndexPage">
             <Container>
                 <h1>Discover things</h1>
                 <hr />
                 {
-                    //TO-DO: CAMBIAR A SPINNER
                     !projects ?
-                        <h1>Cargando</h1> :
+                        <Loader /> :
                         <ProjectList projects={projects} />
                 }
+                <Link to={'/discover/extended'} className='btn btn-dark mb-5'>Discover Extended</Link>
             </Container>
         </div>
     )

@@ -1,9 +1,9 @@
 import axios from "axios"
 
-class ProjectService {
+class PlanService {
     constructor() {
         this.api = axios.create({
-            baseURL: `${import.meta.env.VITE_API_URL}/projects`
+            baseURL: `${import.meta.env.VITE_API_URL}/plan`
         })
 
         this.api.interceptors.request.use((config) => {
@@ -15,23 +15,27 @@ class ProjectService {
         })
     }
 
-    getProjects() {
+    getPlan() {
         return this.api.get('/')
     }
 
-    getFeaturedProjects() {
-        return this.api.get('/featured')
+    getRecommendedProjects() {
+        return this.api.get('/recommended')
     }
 
-    getOneProject(id) {
+    getPlansByProject(id) {
+        return this.api.get(`/filter/${id}`)
+    }
+
+    getOnePlan(id) {
         return this.api.get(`/${id}`)
     }
 
-    createProject(projectData) {
-        return this.api.post('/', projectData)
+    createPlan(planData) {
+        return this.api.post('/', planData)
     }
 }
 
-const projectService = new ProjectService()
+const planService = new PlanService()
 
-export default projectService
+export default planService

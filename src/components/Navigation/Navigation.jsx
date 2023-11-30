@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context';
 
+
 const Navigation = () => {
     const { loggedUser, logout } = useContext(AuthContext)
 

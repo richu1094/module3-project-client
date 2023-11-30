@@ -11,8 +11,6 @@ const CategoryPage = () => {
     }, [])
 
     const loadCategory = () => {
-        
-        console.log("----------------")
         categoryService
             .getCategories()
             .then(({ data }) => setCategory(data))
