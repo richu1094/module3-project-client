@@ -10,6 +10,7 @@ import DiscoverPage from '../pages/DiscoverPage/DiscoverPage'
 import ProtectedRoute from './ProtectedRoute'
 import DiscoverExtendedPage from '../pages/DiscoverExtendedPage/DiscoverExtendedPage'
 import NewPlanPage from '../pages/NewPlanPage/NewPlanPage'
+import Profile from '../pages/Profile/Profile'
 
 const AppRoutes = () => {
 
@@ -28,6 +29,7 @@ const AppRoutes = () => {
 
 
             <Route element={<ProtectedRoute />}>
+                <Route path={"/profile"} element={<Profile />}></Route>
                 <Route path={"/project/create"} element={<NewProjectPage />}></Route>
                 <Route path={"/category/create"} element={<NewCategoryPage />}></Route>
                 <Route path={"/project/:id/plan"} element={<NewPlanPage />}></Route>

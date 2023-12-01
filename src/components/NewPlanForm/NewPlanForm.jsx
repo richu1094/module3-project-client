@@ -42,37 +42,37 @@ const NewPlanForm = () => {
             <Card style={{ width: '40rem', minHeight: '20rem', margin: "10px" }}>
                 <Card.Body>
                     <Form onSubmit={handlePlanSubmit}>
-                        <div class="input-group mb-3">
-                            <label for="title" class="form-label">Title</label>
+                        <div className="input-group mb-3">
+                            <label for="title" className="form-label">Title</label>
                             <InputGroup>
                                 <input class="form-control" size="sm" type="text" id="title" name="title" placeholder="Title" onChange={handleInputChange} />
                             </InputGroup>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <label for="description" class="form-label">Description</label>
+                        <div className="input-group mb-3">
+                            <label for="description" className="form-label">Description</label>
                             <InputGroup>
                                 <input class="form-control" type="text" id="description" name="description" placeholder="Description" onChange={handleInputChange} />
                             </InputGroup>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <label for="image" class="form-label">Image</label>
+                        <div className="input-group mb-3">
+                            <label for="image" className="form-label">Image</label>
                             <InputGroup>
                                 <input className="form-control" type="file" id="image" name="image" onChange={handleInputChange} />
                             </InputGroup>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <label for="price" class="form-label">Price</label>
+                        <div className="input-group mb-3">
+                            <label for="price" className="form-label">Price</label>
                             <InputGroup>
                                 <span class="input-group-text">€</span>
                                 <input class="form-control" type="number" id='price' name="price" placeholder="Price for this plan" onChange={handleInputChange} />
                             </InputGroup>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <label for="content" class="form-label">Content</label>
+                        <div className="input-group mb-3">
+                            <label for="content" className="form-label">Content</label>
                             <InputGroup>
                                 <textarea class="form-control" rows="3" id="content" name="content" placeholder="What will be included in this plan" onChange={handleInputChange} />
                             </InputGroup>

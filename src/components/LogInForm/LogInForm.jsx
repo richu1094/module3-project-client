@@ -30,7 +30,7 @@ const LogInForm = () => {
             .then(({ data }) => {
                 localStorage.setItem('authToken', data.authToken)
                 authenticateUser()
-                navigate("/")
+                navigate("/discover")
             })
             .catch(err => console.log(err))
     }
