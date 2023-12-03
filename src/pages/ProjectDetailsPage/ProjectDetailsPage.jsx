@@ -5,6 +5,7 @@ import { Container, Row, Col, Button } from "react-bootstrap"
 import Loader from "../../components/Loader/Loader"
 import planService from "../../services/plan.services"
 import PlanList from "../../components/PlanList/PlanList"
+import ProjectDetails from "../../components/ProjectDetails/ProjectDetails"
 
 const ProjectDetailsPage = () => {
     const { id } = useParams()
@@ -35,33 +36,12 @@ const ProjectDetailsPage = () => {
             <Container>
                 {!project ?
                     <Loader /> :
-                    (
-                        <div>
-                            <h2 className="mb-4">Detalles de {project.title}</h2>
-                            <hr />
-                            <Row>
-                                <Col md={{ span: 6, offset: 1 }}>
-                                    <h3>Especificaciones</h3>
-                                    <p>{project.description}</p>
-                                    <hr />
-                                    <Link to={`/project/${project._id}/plan`} className="btn btn-dark">Create Plan</Link>
-                                    <Link to="/" className="btn btn-dark">Back</Link>
-                                </Col>
-
-                                <Col md={{ span: 4 }}>
-                                    <img src={project.imageUrl} style={{ width: '100%' }} />
-                                </Col>
-                            </Row>
-                        </div>
-
-                    )
+                    <ProjectDetails project={project} />
                 }
                 <hr />
                 {!plans ?
                     <Loader /> :
-                    (
-                        <PlanList plans={plans} />
-                    )
+                    <PlanList plans={plans} />
                 }
             </Container>
         </div>

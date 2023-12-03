@@ -19,12 +19,20 @@ class UserService {
         return this.api.get('/')
     }
 
-    getMyProfile() {
-        return this.api.get('/myprofile')
-    }
-
     getOneUser(id) {
         return this.api.get(`/${id}`)
+    }
+
+    editUser(id, user) {
+        return this.api.post(`/${id}/edit`, user)
+    }
+
+    getUserBalance() {
+        return this.api.get(`/getbalance`)
+    }
+
+    deleteUser(id) {
+        return this.api.post(`/${id}/delete`)
     }
 
     addFunds(funds) {

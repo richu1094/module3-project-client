@@ -1,39 +1,36 @@
-import { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
-import ProjectService from '../../services/projects.services'
-import ProjectList from '../../components/ProjectList/ProjectList'
-import Loader from '../../components/Loader/Loader'
-import { Link } from 'react-router-dom'
+import { Container } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import categoryService from "../../services/category.services"
+import Loader from "../../components/Loader/Loader"
+import AccordionList from "../../components/AccordionList/AccordionList"
 
 const DiscoverPage = () => {
 
-    const [projects, setProjects] = useState()
+    const [category, setCategory] = useState()
 
     useEffect(() => {
-        loadProjects()
+        loadCategory()
     }, [])
 
-    const loadProjects = () => {
-        ProjectService
-            .getFeaturedProjects()
-            .then(({ data }) => setProjects(data))
+    const loadCategory = () => {
+        categoryService
+            .getCategories()
+            .then(({ data }) => setCategory(data))
             .catch(err => console.log(err))
     }
 
     return (
-        <div className="IndexPage">
+        <div className="DiscoverExtendedPage">
             <Container>
-                <h1>Discover things</h1>
+                <h2>Discover Extended</h2>
                 <hr />
                 {
-                    !projects ?
+                    !category ?
                         <Loader /> :
-                        <ProjectList projects={projects} />
+                        <AccordionList category={category} />
                 }
-                <Link to={'/discover/extended'} className='btn btn-dark mb-5'>Discover Extended</Link>
             </Container>
-        </div>
-    )
+        </div>)
 }
 
 export default DiscoverPage

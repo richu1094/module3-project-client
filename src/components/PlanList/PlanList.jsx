@@ -1,7 +1,12 @@
+import { Row } from 'react-bootstrap'
 import PlanCard from '../PlanCard/PlanCard'
 
 const PlanList = ({ plans }) => {
-    return plans.map((eachPlan, i) => <PlanCard eachPlan={eachPlan} key={i} />)
+    return (
+        <Row>
+            {plans.map((eachPlan, i) => <PlanCard eachPlan={eachPlan} key={i} />)}
+        </Row>
+    )
 }
 
 export default PlanList

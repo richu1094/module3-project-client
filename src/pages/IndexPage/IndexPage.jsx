@@ -1,11 +1,13 @@
 import { Container } from 'react-bootstrap'
+import DiscoverFeatured from '../../components/DiscoverFeatured/DiscoverFeatured'
+
 const IndexPage = () => {
     return (
         <div className="IndexPage">
             <Container>
                 <h1>Bienvenido a RICHISTARTER</h1>
                 <hr />
-                <h2>BLA BLA BLA MUCHAS IMAGENES QUE BONITO</h2>
+                <DiscoverFeatured />
             </Container>
         </div>
     )

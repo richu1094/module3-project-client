@@ -1,30 +1,34 @@
-import { Card } from 'react-bootstrap'
-import { Link } from "react-router-dom"
+import { Button, Card } from 'react-bootstrap'
 import categoryService from '../../services/category.services'
+import { useState } from 'react'
+import CategoryModalForm from '../CategoryModalForm/CategoryModalForm'
 
-const CategoryCard = ({ eachCategory, refreshCategory }) => {
+const CategoryCard = ({ eachCategory, loadCategory }) => {
+
+    const [showModal, setShowModal] = useState(false)
 
     const deleteCategory = () => {
         categoryService
             .deleteCategory(eachCategory._id)
-            .then(() => refreshCategory())
+            .then(() => loadCategory())
             .catch(err => console.log(err))
     }
 
     {
         return (
-            <Card className="text-center">
-                <Card.Body>
-                    <Card.Title>{eachCategory.title}</Card.Title>
-                    <Card.Text>
-                        {eachCategory.description}
-                    </Card.Text>
-                    <Link to={`/category/${eachCategory._id}`} className='btn btn-dark'>Details</Link>
-                    <Link to={`/category/${eachCategory._id}`} className='btn btn-dark'>Editar</Link>
-                    <Link onClick={deleteCategory} className='btn btn-dark'>Borrar</Link>
-                </Card.Body>
-                {/* <Card.Footer className="text-muted">{eachCategory.createdAt}</Card.Footer> */}
-            </Card>
+            <div className='CategoryCard'>
+                <Card className="text-center">
+                    <Card.Body>
+                        <Card.Title>{eachCategory.title}</Card.Title>
+                        <Card.Text>
+                            {eachCategory.description}
+                        </Card.Text>
+                        <Button variant='dark' onClick={() => setShowModal(true)}>Editar</Button>
+                        <Button variant='danger' onClick={deleteCategory}>Borrar</Button>
+                    </Card.Body>
+                </Card>
+                <CategoryModalForm showModal={showModal} setShowModal={setShowModal} loadCategory={loadCategory} type={"Edit"} eachCategory={eachCategory} />
+            </div>
         )
     }
 }

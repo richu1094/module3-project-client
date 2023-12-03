@@ -7,7 +7,7 @@ const NewProjectPage = () => {
     return (
         <div className="NewProjectPage">
             <Container>
-                <h1>Nuevo Proyecto</h1>
+                <h2>Create a new project</h2>
                 <hr />
                 <NewProjectForm />
             </Container>

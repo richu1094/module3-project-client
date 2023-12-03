@@ -5,8 +5,8 @@ const LogInPage = () => {
     return (
         <Container>
             <Row>
-                <Col md={{ offset: 3, span: 6 }}>
-                    <h1>Acceso</h1>
+                <Col md={{ span: 6, offset: 3 }}>
+                    <h2>Log In</h2>
                     <hr />
                     <LogInForm />
                 </Col>

@@ -1,7 +1,7 @@
 import CategoryCard from "../CategoryCard/CategoryCard"
 
-const CategoryList = ({ category, refreshCategory }) => {
-    return category.map((eachCategory, i) => <CategoryCard eachCategory={eachCategory} refreshCategory={refreshCategory} key={i} />)
+const CategoryList = ({ category, loadCategory }) => {
+    return category.map((eachCategory, i) => <CategoryCard eachCategory={eachCategory} loadCategory={loadCategory} key={i} />)
 }
 
 export default CategoryList

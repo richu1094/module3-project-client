@@ -2,11 +2,11 @@ import { useState } from "react"
 import { Form, Button } from "react-bootstrap"
 import categoryService from "../../services/category.services";
 
-const NewCategoryForm = ({ setShowModal, loadCategory }) => {
+const EditCategoryForm = ({ setShowModal, loadCategory, eachCategory }) => {
 
     const [categoryData, setCategoryData] = useState({
-        title: '',
-        description: '',
+        title: eachCategory.title,
+        description: eachCategory.description,
     })
 
     const handleInputChange = e => {
@@ -17,7 +17,7 @@ const NewCategoryForm = ({ setShowModal, loadCategory }) => {
     const handleCategorySubmit = e => {
         e.preventDefault()
         categoryService.
-            createCategory(categoryData)
+            editCategory(eachCategory._id, categoryData)
             .then(() => {
                 setShowModal(false)
                 loadCategory()
@@ -39,11 +39,11 @@ const NewCategoryForm = ({ setShowModal, loadCategory }) => {
                 </Form.Group>
 
                 <div className="d-grid">
-                    <Button variant="dark" type="submit">Create category</Button>
+                    <Button variant="dark" type="submit">Edit category</Button>
                 </div>
             </Form>
         </div>
     )
 }
 
-export default NewCategoryForm
+export default EditCategoryForm

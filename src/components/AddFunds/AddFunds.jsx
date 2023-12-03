@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap"
 import userService from "../../services/user.services";
+import { toast } from "sonner"
 
-const AddFunds = ({ setShowModal }) => {
+const AddFunds = ({ setShowFundsModal }) => {
 
     const [funds, setFunds] = useState({
         balance: 0
@@ -20,14 +21,19 @@ const AddFunds = ({ setShowModal }) => {
     const handleFundsSubmit = e => {
         e.preventDefault()
 
+        if (funds.balance <= 0) {
+            toast.error("You must enter a valid amount")
+            return
+        }
+
         userService
             .addFunds(funds)
             .then(() => {
-                setShowModal(false)
+                setShowFundsModal(false)
+                toast.success("Funds added successfully")
             })
             .catch(err => console.log(err))
     }
-
 
     return (
         <div className="AddFunds">
@@ -41,7 +47,7 @@ const AddFunds = ({ setShowModal }) => {
                 </div>
 
                 <div className="d-grid mb-3">
-                    <Button variant="outline-dark" type="submit">Add</Button>
+                    <Button className="btn btn-dark" type="submit">Add Funds</Button>
                 </div>
             </Form>
         </div>

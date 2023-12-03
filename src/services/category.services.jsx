@@ -26,6 +26,10 @@ class CategoryService {
         return this.api.post('/create', categoryData)
     }
 
+    editCategory(id, categoryData) {
+        return this.api.post(`/${id}/edit`, categoryData)
+    }
+
     deleteCategory(id) {
         return this.api.post(`/${id}/delete`)
     }

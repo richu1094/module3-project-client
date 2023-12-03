@@ -5,10 +5,8 @@ import { AuthContext } from '../../contexts/auth.context';
 import AddFunds from '../AddFunds/AddFunds';
 
 const Navigation = () => {
-    const { loggedUser, logout } = useContext(AuthContext)
-    const [showModal, setShowModal] = useState(false)
-
-
+    const { loggedUser, isAdmin, logout } = useContext(AuthContext)
+    const [showFundsModal, setShowFundsModal] = useState(false)
 
     return (
         <>
@@ -20,14 +18,20 @@ const Navigation = () => {
                         <Nav className="me-auto">
                             <Link to={'/'} className='nav-link'>Home</Link>
                             <Link to={'/discover'} className='nav-link'>Discover</Link>
-                            <Link to={'/project/create'} className='nav-link'>Create Project</Link>
-                            <Link to={'/category'} className='nav-link'>Category</Link>
-                            <Link to={'/category/create'} className='nav-link'>Create Category</Link>
+                            <Link to={'/community'} className='nav-link'>Community</Link>
+                            {loggedUser && <Link to={'/project/create'} className='nav-link'>Create Project</Link>}
+
+                            {isAdmin && (
+                                <NavDropdown title="Admin Panel">
+                                    <NavDropdown.Item as={Link} to={'/category'}>Category</NavDropdown.Item>
+                                </NavDropdown>
+                            )}
+
                         </Nav>
                         <Navbar.Text className="justify-content-end">
                             <NavDropdown title={loggedUser ? <Navbar.Text>¡Welcome, {loggedUser.username}!</Navbar.Text> : <Navbar.Text>¡Welcome, Guest!</Navbar.Text>} id="collapsible-nav-dropdown">
-                                {loggedUser && <NavDropdown.Item as={Link} to={"/profile"}>Profile</NavDropdown.Item>}
-                                {loggedUser && <NavDropdown.Item as={Link} onClick={() => setShowModal(true)}>Add Funds</NavDropdown.Item>}
+                                {loggedUser && <NavDropdown.Item as={Link} to={`/profile/${loggedUser._id}`}>Profile</NavDropdown.Item>}
+                                {loggedUser && <NavDropdown.Item as={Link} onClick={() => setShowFundsModal(true)}>Add Funds</NavDropdown.Item>}
                                 {!loggedUser && <NavDropdown.Item as={Link} to={"/log-in"}>Log In</NavDropdown.Item>}
                                 {!loggedUser && <NavDropdown.Item as={Link} to={"/sign-up"}>Sign Up</NavDropdown.Item>}
                                 {loggedUser && <NavDropdown.Divider />}
@@ -38,12 +42,12 @@ const Navigation = () => {
                 </Container>
             </Navbar>
 
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal show={showFundsModal} onHide={() => setShowFundsModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Adding funds</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddFunds setShowModal={setShowModal} />
+                    <AddFunds setShowFundsModal={setShowFundsModal} />
                 </Modal.Body>
             </Modal>
         </>

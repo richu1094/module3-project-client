@@ -1,10 +1,13 @@
-import { Container } from "react-bootstrap"
+import { Button, Container } from "react-bootstrap"
 import CategoryList from "../../components/CategoryList/CategoryList"
 import categoryService from "../../services/category.services"
 import { useEffect, useState } from "react"
+import CategoryModalForm from "../../components/CategoryModalForm/CategoryModalForm"
+import Loader from "../../components/Loader/Loader"
 
 const CategoryPage = () => {
     const [category, setCategory] = useState()
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         loadCategory()
@@ -22,11 +25,15 @@ const CategoryPage = () => {
             <Container>
                 <h1>Category</h1>
                 <hr />
+                <Button className="btn btn-dark" onClick={() => setShowModal(true)}>Create Category</Button>
                 {
                     !category ?
-                        <h1>Cargando</h1> :
-                        <CategoryList category={category} refreshCategory={loadCategory} />
+                        <Loader /> :
+                        <CategoryList category={category} loadCategory={loadCategory} />
                 }
+
+                <CategoryModalForm showModal={showModal} setShowModal={setShowModal} loadCategory={loadCategory} type={"Create"} />
+
             </Container>
         </div>
     )

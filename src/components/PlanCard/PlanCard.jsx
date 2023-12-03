@@ -3,7 +3,7 @@ import { Card, Col } from 'react-bootstrap'
 
 const PlanCard = ({ eachPlan }) => {
     return (
-        <Col md={4}>
+        <Col sm={12} md={4}>
             <Card className="mb-4">
                 <Card.Img variant="top" />
                 <Card.Body>
