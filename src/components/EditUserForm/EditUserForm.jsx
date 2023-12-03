@@ -8,10 +8,11 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
 
     const { isAdmin } = useContext(AuthContext)
     const [loadingImage, setLoadingImage] = useState(false)
+
     const [profileData, setProfileData] = useState({
         username: profile.username,
         email: profile.email,
-        avatar: "https://res.cloudinary.com/db6gxc2n0/image/upload/v1701567818/c1lv68pjmmz5rl2ssg6z.png",
+        avatar: profile.avatar || "https://res.cloudinary.com/dv7hswrot/image/upload/v1619680312/userDefaultIcon_qvyjtz.png",
         role: profile.role,
         balance: profile.balance
     })
@@ -72,8 +73,8 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
                         <Form.Group className="mb-3" controlId="role">
                             <Form.Label>Role</Form.Label>
                             <Form.Select onChange={handleInputChange} name="role" value={profileData.role}>
-                                <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
+                                <option value="USER">USER</option>
                             </Form.Select>
                         </Form.Group>
 

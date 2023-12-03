@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { Form, Button, Card, InputGroup } from "react-bootstrap"
-import { useNavigate } from "react-router-dom";
 import planService from "../../services/plan.services";
 
-const NewPlanForm = () => {
-
-    const navigate = useNavigate();
+const NewPlanForm = ({ project, setShowAddPlanModal, loadPlan }) => {
 
     const [planData, setPlanData] = useState({
         title: '',
@@ -13,7 +10,7 @@ const NewPlanForm = () => {
         image: "",
         content: "",
         price: 0,
-        project: "65649ee88334efde3d2c61ed",
+        project: project._id,
         isRecommended: false
     })
 
@@ -28,18 +25,19 @@ const NewPlanForm = () => {
 
     const handlePlanSubmit = e => {
         e.preventDefault()
+
         planService
             .createPlan(planData)
-            .then(response => {
-                console.log(response)
-                return navigate("/discover")
+            .then(() => {
+                setShowAddPlanModal(false)
+                loadPlan()
             })
             .catch(err => console.log(err))
     }
 
     return (
         <div className="NewPlanForm">
-            <Card style={{ width: '40rem', minHeight: '20rem', margin: "10px" }}>
+            <Card>
                 <Card.Body>
                     <Form onSubmit={handlePlanSubmit}>
                         <div className="input-group mb-3">
@@ -80,9 +78,9 @@ const NewPlanForm = () => {
 
                         <Form.Check className="mb-3" type="checkbox" label="Is Recommended?" name="isRecommended" checked={planData.isRecommended} onChange={handleInputChange} />
 
-                        <div className="d-grid">
-                            <Button variant="outline-dark" type="submit">Add</Button>
-                            <Button variant="outline-dark" type="submit">Return</Button>
+                        <div className="d-flex justify-content-center">
+                            <Button variant="dark" type="submit">Create Plan</Button>
+                            <Button variant="dark" onClick={() => setShowAddPlanModal(false)}>Cancel</Button>
                         </div>
                     </Form>
                 </Card.Body>

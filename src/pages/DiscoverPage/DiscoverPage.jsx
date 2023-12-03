@@ -20,9 +20,9 @@ const DiscoverPage = () => {
     }
 
     return (
-        <div className="DiscoverExtendedPage">
+        <div className="DiscoverPage">
             <Container>
-                <h2>Discover Extended</h2>
+                <h2>Discover</h2>
                 <hr />
                 {
                     !category ?

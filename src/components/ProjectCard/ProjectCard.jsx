@@ -13,7 +13,7 @@ const ProjectCard = ({ eachProject }) => {
                     </Card.Text>
                     <Link to={`/project/${eachProject._id}`} className='btn btn-dark'>Details</Link>
                 </Card.Body>
-                <Card.Footer className="text-muted">{eachProject.createdAt}</Card.Footer>
+                <Card.Footer className="text-muted">{eachProject.createdAt.slice(0, 10)}</Card.Footer>
             </Card>
         )
     }

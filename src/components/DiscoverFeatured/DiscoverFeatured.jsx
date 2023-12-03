@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import Loader from '../Loader/Loader'
 import ProjectList from '../ProjectList/ProjectList'
 import ProjectService from '../../services/projects.services'
@@ -22,16 +22,14 @@ const DiscoverFeatured = () => {
 
     return (
         <div className="DiscoverFeatured">
-            <Container>
-                <h1>Discover things</h1>
-                <hr />
-                {
-                    !projects ?
-                        <Loader /> :
-                        <ProjectList projects={projects} />
-                }
-                <Link to={'/discover'} className='btn btn-dark mb-5'>Discover More</Link>
-            </Container>
+            <h2>Featured Projects</h2>
+            <hr />
+            {
+                !projects ?
+                    <Loader /> :
+                    <ProjectList projects={projects} />
+            }
+            <Button as={Link} to={'/discover'} variant='dark'>Discover More</Button>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import projectService from "../../services/projects.services"
-import { useParams, Link } from "react-router-dom"
-import { Container, Row, Col, Button } from "react-bootstrap"
+import { useNavigate, useParams } from "react-router-dom"
+import { Container } from "react-bootstrap"
 import Loader from "../../components/Loader/Loader"
 import planService from "../../services/plan.services"
 import PlanList from "../../components/PlanList/PlanList"
@@ -11,6 +11,8 @@ const ProjectDetailsPage = () => {
     const { id } = useParams()
     const [project, setProject] = useState()
     const [plans, setPlans] = useState()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadProject()
@@ -31,12 +33,22 @@ const ProjectDetailsPage = () => {
             .catch(err => console.log(err))
     }
 
+    const deleteProject = () => {
+        projectService
+            .deleteProject(id)
+            .then(() => {
+                navigate('/discover')
+                loadProject()
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <div className="ProjectDetailsPage">
             <Container>
                 {!project ?
                     <Loader /> :
-                    <ProjectDetails project={project} />
+                    <ProjectDetails project={project} loadProject={loadProject} loadPlan={loadPlan} deleteProject={deleteProject} />
                 }
                 <hr />
                 {!plans ?
@@ -47,6 +59,5 @@ const ProjectDetailsPage = () => {
         </div>
     )
 }
-
 
 export default ProjectDetailsPage

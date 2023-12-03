@@ -30,6 +30,14 @@ class ProjectService {
     createProject(projectData) {
         return this.api.post('/', projectData)
     }
+
+    editProject(id, projectData) {
+        return this.api.post(`/${id}`, projectData)
+    }
+
+    deleteProject(id) {
+        return this.api.post(`/${id}/delete`)
+    }
 }
 
 const projectService = new ProjectService()

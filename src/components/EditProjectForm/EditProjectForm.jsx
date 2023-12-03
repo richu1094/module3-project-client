@@ -1,26 +1,23 @@
-import { useEffect, useState } from "react"
-import { Form, Button, Row, Col, Card } from "react-bootstrap"
-import { useNavigate } from "react-router-dom";
-import projectService from "../../services/projects.services"
+import { useEffect, useState } from "react";
+import { Form, Button, Card, Row, Col } from "react-bootstrap"
+import projectService from "../../services/projects.services";
 import categoryService from "../../services/category.services";
 import uploadServices from "../../services/upload.services";
-import { toast } from 'sonner'
+import { toast } from "sonner"
 
-const NewProjectForm = () => {
-
-    const navigate = useNavigate();
+const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
 
     const [loadingImage, setLoadingImage] = useState(false)
     const [errors, setErrors] = useState([])
 
     const [projectData, setProjectData] = useState({
-        title: '',
-        description: '',
-        image: "",
-        goal: 0,
-        endDate: "",
-        category: "",
-        isFeatured: false
+        title: project.title,
+        description: project.description,
+        image: project.image,
+        goal: project.balance.goal,
+        endDate: project.endDate.slice(0, 10),
+        category: project.category,
+        isFeatured: project.isFeatured
     })
 
     const handleInputChange = e => {
@@ -50,9 +47,12 @@ const NewProjectForm = () => {
         }
 
         projectService
-            .createProject(projectData)
-            .then(() => navigate("/discover"))
-            .catch(err => setErrors(err.response.data.errorMessages))
+            .editProject(project._id, projectData)
+            .then(() => {
+                setShowEditProjectModal(false)
+                loadProject()
+            })
+            .catch(err => console.log(err))
     }
 
     const [category, setCategory] = useState()
@@ -94,7 +94,7 @@ const NewProjectForm = () => {
     }, [errors])
 
     return (
-        <div className="NewProjectForm">
+        <div className="EditProjectForm">
             <Card>
                 <Card.Body>
                     <Form onSubmit={handleProjectSubmit}>
@@ -123,7 +123,6 @@ const NewProjectForm = () => {
                             </Col>
                         </Row>
 
-
                         <Row>
                             <Col>
                                 <Form.Group className="mb-3" controlId="date">
@@ -135,8 +134,7 @@ const NewProjectForm = () => {
                             <Col>
                                 <Form.Group className="mb-3" controlId="category">
                                     <Form.Label>Category</Form.Label>
-                                    <Form.Select onChange={handleInputChange} name="category">
-                                        <option value="">Select a category</option>
+                                    <Form.Select onChange={handleInputChange} name="category" value={projectData.category}>
                                         {category && category.map((eachCategory, i) => <option key={i} value={eachCategory._id}>{eachCategory.title}</option>)}
                                     </Form.Select>
                                 </Form.Group>
@@ -153,6 +151,7 @@ const NewProjectForm = () => {
             </Card>
         </div>
     )
-}
 
-export default NewProjectForm
+};
+
+export default EditProjectForm;
