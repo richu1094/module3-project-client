@@ -6,32 +6,31 @@ import ProjectService from '../../services/projects.services'
 import { Link } from 'react-router-dom'
 
 const DiscoverFeatured = () => {
+  const [projects, setProjects] = useState()
 
-    const [projects, setProjects] = useState()
+  useEffect(() => {
+    loadProjects()
+  }, [])
 
-    useEffect(() => {
-        loadProjects()
-    }, [])
+  const loadProjects = () => {
+    ProjectService
+      .getFeaturedProjects()
+      .then(({ data }) => setProjects(data))
+      .catch(err => console.log(err))
+  }
 
-    const loadProjects = () => {
-        ProjectService
-            .getFeaturedProjects()
-            .then(({ data }) => setProjects(data))
-            .catch(err => console.log(err))
-    }
-
-    return (
-        <div className="DiscoverFeatured">
-            <h2>Featured Projects</h2>
-            <hr />
-            {
-                !projects ?
-                    <Loader /> :
-                    <ProjectList projects={projects} />
-            }
-            <Button as={Link} to={'/discover'} variant='dark'>Discover More</Button>
-        </div>
-    )
+  return (
+    <div className='DiscoverFeatured'>
+      <h2>Featured Projects</h2>
+      <hr />
+      {
+        !projects
+          ? <Loader />
+          : <ProjectList projects={projects} />
+      }
+      <Button as={Link} to='/discover' variant='dark'>Discover More</Button>
+    </div>
+  )
 }
 
 export default DiscoverFeatured

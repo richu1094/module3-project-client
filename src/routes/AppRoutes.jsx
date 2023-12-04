@@ -11,27 +11,26 @@ import ProfilePage from '../pages/ProfilePage/ProfilePage'
 import CommunityPage from '../pages/CommunityPage/CommunityPage'
 
 const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path='/' element={<IndexPage />} />
+      <Route path='/community' element={<CommunityPage />} />
 
-    return (
-        <Routes>
-            <Route path={"/"} element={<IndexPage />}></Route>
-            <Route path={"/community"} element={<CommunityPage />}></Route>
+      <Route path='/discover' element={<DiscoverPage />} />
+      <Route path='/project/:id' element={<ProjectDetailsPage />} />
 
-            <Route path={"/discover"} element={<DiscoverPage />}></Route>
-            <Route path={"/project/:id"} element={<ProjectDetailsPage />}></Route>
+      <Route path='/sign-up' element={<SignUpPage />} />
+      <Route path='/log-in' element={<LogInPage />} />
 
-            <Route path={"/sign-up"} element={<SignUpPage />}></Route>
-            <Route path={"/log-in"} element={<LogInPage />}></Route>
+      <Route element={<ProtectedRoute />}>
+        <Route path='/profile/:id' element={<ProfilePage />} />
+        <Route path='/category' element={<CategoryPage />} />
+        <Route path='/project/create' element={<NewProjectPage />} />
+      </Route>
 
-            <Route element={<ProtectedRoute />}>
-                <Route path={"/profile/:id"} element={<ProfilePage />}></Route>
-                <Route path={"/category"} element={<CategoryPage />}></Route>
-                <Route path={"/project/create"} element={<NewProjectPage />}></Route>
-            </Route>
-
-            <Route path={"*"} element={<img src='https://i.emezeta.com/weblog/meme-la-cosa/cosa-no-pinta-nada-bien.jpg'></img>}></Route>
-        </Routes>
-    )
+      <Route path='*' element={<img src='https://i.emezeta.com/weblog/meme-la-cosa/cosa-no-pinta-nada-bien.jpg' />} />
+    </Routes>
+  )
 }
 
 export default AppRoutes

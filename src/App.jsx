@@ -2,16 +2,16 @@ import './App.css'
 import Footer from './components/Footer/Footer'
 import Navigation from './components/Navigation/Navigation'
 import AppRoutes from './routes/AppRoutes'
-import { Toaster } from 'sonner';
+import { Toaster } from 'sonner'
 
-function App() {
+function App () {
   return (
-    <div className="App" >
+    <div className='App'>
       <Navigation />
       <AppRoutes />
       <Toaster theme='dark' expand visibleToasts={5} />
       <Footer />
-    </div >
+    </div>
   )
 }
 

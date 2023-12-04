@@ -1,8 +1,8 @@
 const Label = () => {
-    return (
-        <>
-        </>
-    )
+  return (
+    <>
+    </>
+  )
 }
 
 export default Label
