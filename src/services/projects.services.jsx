@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 class ProjectService {
-  constructor () {
+  constructor() {
     this.api = axios.create({
       baseURL: `${import.meta.env.VITE_API_URL}/projects`
     })
@@ -15,29 +15,46 @@ class ProjectService {
     })
   }
 
-  getProjects () {
+  getProjects() {
     return this.api.get('/')
   }
 
-  getFeaturedProjects () {
+  getFeaturedProjects() {
     return this.api.get('/featured')
   }
 
-  getOneProject (id) {
+  getOneProject(id) {
     return this.api.get(`/${id}`)
   }
 
-  createProject (projectData) {
+  createProject(projectData) {
     return this.api.post('/', projectData)
   }
 
-  editProject (id, projectData) {
+  editProject(id, projectData) {
     return this.api.post(`/${id}`, projectData)
   }
 
-  deleteProject (id) {
+  deleteProject(id) {
     return this.api.post(`/${id}/delete`)
   }
+
+  followedByUser(id) {
+    return this.api.post(`/${id}/follow`)
+  }
+
+  unfollowedByUser(id) {
+    return this.api.post(`/${id}/unfollow`)
+  }
+
+  saveDonation(id, amount) {
+    return this.api.post(`/${id}/support/${amount}`)
+  }
+
+  addBalance(id, amount) {
+    return this.api.post(`/${id}/addbalance/${amount}`)
+  }
+
 }
 
 const projectService = new ProjectService()

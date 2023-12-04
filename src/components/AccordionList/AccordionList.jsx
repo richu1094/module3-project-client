@@ -14,10 +14,7 @@ const AccordionList = ({ category }) => {
   const loadProject = () => {
     projectService
       .getProjects()
-      .then(({ data }) => {
-        console.log(data)
-        setProject(data)
-      })
+      .then(({ data }) => setProject(data))
       .catch(err => console.log(err))
   }
 

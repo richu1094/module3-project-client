@@ -1,9 +1,44 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Card, Col, Modal } from 'react-bootstrap'
 import EditPlanForm from '../EditPlanForm/EditPlanForm'
+import userService from '../../services/user.services'
+import projectService from '../../services/projects.services'
+import { toast } from 'sonner'
 
-const PlanCard = ({ eachPlan, loadPlan, deletePlan }) => {
+const PlanCard = ({ eachPlan, loadPlan, loadProject, deletePlan }) => {
   const [showEditPlanModal, setShowEditPlanModal] = useState(false)
+  const [balance, setBalance] = useState(0)
+
+  useEffect(() => {
+    loadBalance()
+  }, [])
+
+  const loadBalance = () => {
+    userService
+      .getUserBalance()
+      .then(({ data }) => {
+        setBalance(data)
+      }).catch(err => console.log(err))
+  }
+
+  const handleDonation = () => {
+    if (balance < eachPlan.price) {
+      return (toast.error('Insufficient funds!'))
+    } else {
+      Promise.all([
+        userService.addDonation(eachPlan.project._id, eachPlan.price),
+        userService.withdrawFunds(eachPlan.price),
+        projectService.saveDonation(eachPlan.project._id, eachPlan.price),
+        projectService.addBalance(eachPlan.project._id, eachPlan.price)
+      ])
+        .then(() => {
+          loadProject()
+          loadBalance()
+          toast.success('Donation successful!')
+        })
+        .catch(err => console.log(err))
+    }
+  }
 
   return (
     <>
@@ -15,7 +50,7 @@ const PlanCard = ({ eachPlan, loadPlan, deletePlan }) => {
             <Card.Text>{eachPlan.description}</Card.Text>
 
             <div className='d-flex justify-content-center'>
-              <Button variant='success'>Pledge</Button>
+              <Button variant='success' onClick={() => handleDonation()}>Donate</Button>
             </div>
 
             <div className='d-flex justify-content-center mt-3'>

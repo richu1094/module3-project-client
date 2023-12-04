@@ -66,7 +66,7 @@ const ProjectDetailsPage = () => {
 
         {!plans
           ? <Loader />
-          : <PlanList plans={plans} loadPlan={loadPlan} deletePlan={deletePlan} />}
+          : <PlanList plans={plans} loadPlan={loadPlan} loadProject={loadProject} deletePlan={deletePlan} />}
       </Container>
     </div>
   )
