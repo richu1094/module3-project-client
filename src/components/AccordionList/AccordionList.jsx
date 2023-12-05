@@ -5,7 +5,6 @@ import Loader from '../Loader/Loader'
 import ProjectCard from '../ProjectCard/ProjectCard'
 
 const AccordionList = ({ category, project }) => {
-
   return category.map((elm, i) => {
     return (
       <Accordion key={i}>

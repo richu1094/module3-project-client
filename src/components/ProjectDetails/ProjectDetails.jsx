@@ -69,16 +69,18 @@ const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
             <Button variant='warning' onClick={() => handleUnfollow()}>Unfollow</Button>
           </div>}
 
-          {isAdmin || loggedUser?._id === project.owner._id ?
-            <div className='mb-3'>
+          {isAdmin || loggedUser?._id === project.owner._id
+            ? <div className='mb-3'>
               <Button variant='success' onClick={() => setShowAddPlanModal(true)}>Add Plan</Button>
               <Button variant='warning' onClick={() => setShowEditProjectModal(true)}>Edit Project</Button>
-            </div> : null}
+              </div>
+            : null}
 
-          {isAdmin || loggedUser?._id === project.owner._id ?
-            <div className='mb-3'>
+          {isAdmin || loggedUser?._id === project.owner._id
+            ? <div className='mb-3'>
               <Button variant='danger' onClick={() => deleteProject()}>Delete Project</Button>
-            </div> : null}
+              </div>
+            : null}
         </Col>
       </Row>
 

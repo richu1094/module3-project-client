@@ -51,8 +51,8 @@ const DiscoverPage = () => {
               : <AccordionList category={category} project={project} />
           }
           <hr />
-        </Container >
-      </div >
+        </Container>
+      </div>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Create Project</Modal.Title>

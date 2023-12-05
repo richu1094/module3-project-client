@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 class PlanService {
-  constructor() {
+  constructor () {
     this.api = axios.create({
       baseURL: `${import.meta.env.VITE_API_URL}/plan`
     })
@@ -15,27 +15,27 @@ class PlanService {
     })
   }
 
-  getPlan() {
+  getPlan () {
     return this.api.get('/')
   }
 
-  getPlansByProject(id) {
+  getPlansByProject (id) {
     return this.api.get(`/${id}/filter`)
   }
 
-  getOnePlan(id) {
+  getOnePlan (id) {
     return this.api.get(`/${id}`)
   }
 
-  createPlan(planData) {
+  createPlan (planData) {
     return this.api.post('/', planData)
   }
 
-  editPlan(id, planData) {
+  editPlan (id, planData) {
     return this.api.post(`/${id}/edit`, planData)
   }
 
-  deletePlan(id) {
+  deletePlan (id) {
     return this.api.post(`/${id}/delete`)
   }
 }

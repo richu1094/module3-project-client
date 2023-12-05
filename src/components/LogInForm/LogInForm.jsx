@@ -64,8 +64,8 @@ const LogInForm = () => {
             </Form.Group>
 
             <Form.Group className='d-flex justify-content-between' controlId='remember'>
-              <Form.Label as={Link} to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'} target='_blank' className='text-muted'>Forgot your password?</Form.Label>
-              <Form.Label as={Link} to={"/sign-up"} className='text-muted'>Create a new Account</Form.Label>
+              <Form.Label as={Link} to='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank' className='text-muted'>Forgot your password?</Form.Label>
+              <Form.Label as={Link} to='/sign-up' className='text-muted'>Create a new Account</Form.Label>
             </Form.Group>
 
             <div className='d-grid'>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 class UserService {
-  constructor() {
+  constructor () {
     this.api = axios.create({
       baseURL: `${import.meta.env.VITE_API_URL}/users`
     })
@@ -15,43 +15,43 @@ class UserService {
     })
   }
 
-  getUsers() {
+  getUsers () {
     return this.api.get('/')
   }
 
-  getOneUser(id) {
+  getOneUser (id) {
     return this.api.get(`/${id}`)
   }
 
-  editUser(id, user) {
+  editUser (id, user) {
     return this.api.post(`/${id}/edit`, user)
   }
 
-  getUserBalance() {
+  getUserBalance () {
     return this.api.get('/getbalance')
   }
 
-  deleteUser(id) {
+  deleteUser (id) {
     return this.api.post(`/${id}/delete`)
   }
 
-  addFunds(funds) {
+  addFunds (funds) {
     return this.api.post('/addfunds', funds)
   }
 
-  followProject(id) {
+  followProject (id) {
     return this.api.post(`/${id}/follow`)
   }
 
-  unfollowProject(id) {
+  unfollowProject (id) {
     return this.api.post(`/${id}/unfollow`)
   }
 
-  withdrawFunds(funds) {
+  withdrawFunds (funds) {
     return this.api.post(`/withdraw/${funds}`)
   }
 
-  addDonation(id, amount) {
+  addDonation (id, amount) {
     return this.api.post(`/${id}/support/${amount}`)
   }
 }

@@ -10,7 +10,7 @@ const NewPlanForm = ({ project, setShowAddPlanModal, loadPlan }) => {
   const [planData, setPlanData] = useState({
     title: '',
     description: '',
-    image: '',
+    image: 'https://res.cloudinary.com/db6gxc2n0/image/upload/v1701775651/qsii7nqpzg16vyyg9n47.png',
     content: '',
     price: 0,
     project: project._id,

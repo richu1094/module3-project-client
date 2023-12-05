@@ -15,7 +15,8 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
     email: profile.email,
     avatar: profile.avatar || 'https://res.cloudinary.com/dv7hswrot/image/upload/v1619680312/userDefaultIcon_qvyjtz.png',
     role: profile.role,
-    balance: profile.balance
+    balance: profile.balance,
+    location: profile.location
   })
 
   const handleInputChange = e => {
@@ -33,6 +34,7 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
     if (profileData.email.length < 3) errors.push('E-mail must be at least 3 characters long')
     if (profileData.role.length < 1) errors.push('Role must be selected')
     if (profileData.balance < 0) errors.push('Balance must be at least 0')
+    if (profileData.location.length < 3) errors.push('Location must be at least 3 characters long')
 
     if (errors.length > 0) {
       errors.forEach(error => toast.error(error))
@@ -81,6 +83,11 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
         <Form.Group className='mb-3' controlId='email'>
           <Form.Label>E-mail</Form.Label>
           <Form.Control type='text' value={profileData.email} name='email' onChange={handleInputChange} />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='location'>
+          <Form.Label>Location</Form.Label>
+          <Form.Control type='text' value={profileData.location} name='location' onChange={handleInputChange} />
         </Form.Group>
 
         <Form.Group className='mb-3' controlId='image'>

@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Form, Button, Row, Col, Card } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 import projectService from '../../services/projects.services'
 import categoryService from '../../services/category.services'
 import uploadServices from '../../services/upload.services'
 import { toast } from 'sonner'
 
 const NewProjectForm = ({ setShowModal, loadProject }) => {
-  const navigate = useNavigate()
 
   const [loadingImage, setLoadingImage] = useState(false)
+
+  //TO-DO: CAMBIAR TOAST ERRORES
   const [errors, setErrors] = useState([])
 
   const [projectData, setProjectData] = useState({
     title: '',
     description: '',
-    image: '',
+    image: 'https://res.cloudinary.com/db6gxc2n0/image/upload/v1701775651/qsii7nqpzg16vyyg9n47.png',
     goal: 0,
     endDate: '',
     category: '',
@@ -39,7 +39,6 @@ const NewProjectForm = ({ setShowModal, loadProject }) => {
     if (projectData.description.length < 3) errors.push('Description must be at least 3 characters long')
     if (projectData.goal < 1) errors.push('Goal must be at least 1')
     if (projectData.endDate.length < 1) errors.push('Date must be selected')
-    if (projectData.image.length < 1) errors.push('Image must be selected')
     if (projectData.category.length < 1) errors.push('Category must be selected')
 
     if (errors.length > 0) {
