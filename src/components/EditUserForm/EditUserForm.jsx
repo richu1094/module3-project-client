@@ -1,8 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../../contexts/auth.context'
 import { Form, Button } from 'react-bootstrap'
 import userService from '../../services/user.services'
 import uploadServices from '../../services/upload.services'
+import { toast } from 'sonner'
 
 const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
   const { isAdmin } = useContext(AuthContext)
@@ -10,6 +11,7 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
 
   const [profileData, setProfileData] = useState({
     username: profile.username,
+    description: profile.description,
     email: profile.email,
     avatar: profile.avatar || 'https://res.cloudinary.com/dv7hswrot/image/upload/v1619680312/userDefaultIcon_qvyjtz.png',
     role: profile.role,
@@ -24,8 +26,22 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
   const handleCategorySubmit = e => {
     e.preventDefault()
 
+    const errors = []
+
+    if (profileData.username.length < 3) errors.push('Username must be at least 3 characters long')
+    if (profileData.description.length < 3) errors.push('Description must be at least 3 characters long')
+    if (profileData.email.length < 3) errors.push('E-mail must be at least 3 characters long')
+    if (profileData.role.length < 1) errors.push('Role must be selected')
+    if (profileData.balance < 0) errors.push('Balance must be at least 0')
+
+    if (errors.length > 0) {
+      errors.forEach(error => toast.error(error))
+      return
+    }
+
     userService.editUser(profile._id, profileData)
       .then(() => {
+        toast.success('Profile edited successfully')
         setShowEditModal(false)
         loadProfile()
       })
@@ -57,6 +73,11 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
           <Form.Control type='text' value={profileData.username} name='username' onChange={handleInputChange} />
         </Form.Group>
 
+        <Form.Group className='mb-3' controlId='description'>
+          <Form.Label>Description</Form.Label>
+          <Form.Control as='textarea' rows={3} value={profileData.description} name='description' onChange={handleInputChange} />
+        </Form.Group>
+
         <Form.Group className='mb-3' controlId='email'>
           <Form.Label>E-mail</Form.Label>
           <Form.Control type='text' value={profileData.email} name='email' onChange={handleInputChange} />
@@ -83,8 +104,9 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
             </Form.Group>
           </>}
 
-        <div className='d-grid'>
+        <div className='text-center'>
           <Button variant='dark' type='submit' disabled={loadingImage}>{loadingImage ? 'Loading...' : 'Edit user'}</Button>
+          <Button variant='dark' onClick={() => setShowEditModal(false)}>Cancel</Button>
         </div>
       </Form>
     </div>

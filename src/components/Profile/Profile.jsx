@@ -32,16 +32,21 @@ const Profile = ({ profile, loadProfile }) => {
               <ListGroup.Item>
                 <p><strong>Role:</strong> <span className='badge bg-success'>{profile.role}</span></p>
                 <p><strong>Email:</strong> {profile.email}</p>
-                <p><strong>Balance:</strong> {profile.balance}</p>
+                <p><strong>Description</strong> {profile.description}</p>
+                <p><strong>Location:</strong> Madrid</p>
+                <p><strong>Follows:</strong> {profile.following.length}</p>
+                <p><strong>Supported Projects: </strong> {profile.supported.length}</p>
+                <p><strong>User since:</strong> {profile.createdAt.slice(0, 10)}</p>
+                {isAdmin || loggedUser._id === profile._id ?
+                  <p><strong>Balance:</strong> {profile.balance}</p> : null}
               </ListGroup.Item>
+              {isAdmin || loggedUser._id === profile._id
+                ? <Card.Body className='d-flex justify-content-center'>
+                  <Button variant='dark' onClick={() => setShowEditModal(true)}>Edit Profile</Button>
+                  <Button variant='danger' onClick={deleteUser}>Delete User</Button>
+                </Card.Body>
+                : null}
             </ListGroup>
-            {isAdmin || loggedUser._id === profile._id
-              ? <Card.Body className='d-flex justify-content-center'>
-                <Button variant='dark' onClick={() => setShowEditModal(true)}>Edit Profile</Button>
-                <Button variant='danger' onClick={deleteUser}>Delete User</Button>
-              </Card.Body>
-              : null}
-
           </Card>
         </Col>
 

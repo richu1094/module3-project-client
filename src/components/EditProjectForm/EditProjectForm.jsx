@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Form, Button, Card, Row, Col } from 'react-bootstrap'
+import { Form, Button, Card, Row, Col, InputGroup } from 'react-bootstrap'
 import projectService from '../../services/projects.services'
 import categoryService from '../../services/category.services'
 import uploadServices from '../../services/upload.services'
@@ -7,7 +7,6 @@ import { toast } from 'sonner'
 
 const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
   const [loadingImage, setLoadingImage] = useState(false)
-  const [errors, setErrors] = useState([])
 
   const [projectData, setProjectData] = useState({
     title: project.title,
@@ -47,6 +46,7 @@ const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
     projectService
       .editProject(project._id, projectData)
       .then(() => {
+        toast.success('Project edited successfully')
         setShowEditProjectModal(false)
         loadProject()
       })
@@ -84,12 +84,6 @@ const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
       })
   }
 
-  useEffect(() => {
-    if (errors.length > 0) {
-      errors.forEach(err => toast.error(err, 'error'))
-    }
-  }, [errors])
-
   return (
     <div className='EditProjectForm'>
       <Card>
@@ -115,7 +109,10 @@ const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
               <Col>
                 <Form.Group className='mb-3' controlId='goal'>
                   <Form.Label>Goal</Form.Label>
-                  <Form.Control type='number' value={projectData.goal} name='goal' onChange={handleInputChange} />
+                  <InputGroup>
+                    <span className='input-group-text'>€</span>
+                    <input className='form-control' type='number' id='goal' name='goal' value={projectData.goal} onChange={handleInputChange} />
+                  </InputGroup>
                 </Form.Group>
               </Col>
             </Row>
@@ -138,10 +135,13 @@ const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
               </Col>
             </Row>
 
-            <Form.Check className='mb-3' type='checkbox' label='Featured?' name='isFeatured' checked={projectData.isFeatured} onChange={handleInputChange} />
+            <Form.Group className='mb-3' controlId='Featured'>
+              <Form.Check className='mb-3' type='checkbox' label='Featured?' name='isFeatured' checked={projectData.isFeatured} onChange={handleInputChange} />
+              <span className='text-muted'>*Featured projects will be shown on the home page</span>
+            </Form.Group>
 
             <div className='d-flex justify-content-center'>
-              <Button variant='dark' type='submit' disabled={loadingImage}>{loadingImage ? 'Loading...' : 'Create project'}</Button>
+              <Button variant='dark' type='submit' disabled={loadingImage}>{loadingImage ? 'Loading...' : 'Edit Project'}</Button>
               <Button variant='dark' onClick={() => setShowEditProjectModal(false)}>Cancel</Button>
             </div>
           </Form>

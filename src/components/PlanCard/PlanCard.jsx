@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Modal } from 'react-bootstrap'
 import EditPlanForm from '../EditPlanForm/EditPlanForm'
 import userService from '../../services/user.services'
 import projectService from '../../services/projects.services'
+import { AuthContext } from '../../contexts/auth.context'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 const PlanCard = ({ eachPlan, loadPlan, loadProject, deletePlan }) => {
+
+  const { loggedUser, isAdmin, logout } = useContext(AuthContext)
   const [showEditPlanModal, setShowEditPlanModal] = useState(false)
   const [balance, setBalance] = useState(0)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
-    loadBalance()
+    loggedUser && loadBalance()
   }, [])
 
   const loadBalance = () => {
@@ -49,14 +55,21 @@ const PlanCard = ({ eachPlan, loadPlan, loadProject, deletePlan }) => {
             <Card.Title>{eachPlan.title}</Card.Title>
             <Card.Text>{eachPlan.description}</Card.Text>
 
-            <div className='d-flex justify-content-center'>
-              <Button variant='success' onClick={() => handleDonation()}>Donate</Button>
-            </div>
+            {!loggedUser &&
+              <div className='d-flex justify-content-center'>
+                <Button variant='success' onClick={() => navigate("/log-in")}>Donate</Button>
+              </div>}
 
-            <div className='d-flex justify-content-center mt-3'>
-              <Button variant='warning' onClick={() => setShowEditPlanModal(true)}>Edit</Button>
-              <Button variant='danger' onClick={() => deletePlan(eachPlan._id)}>Delete</Button>
-            </div>
+            {loggedUser &&
+              <div className='d-flex justify-content-center'>
+                <Button variant='success' onClick={() => handleDonation()}>Donate</Button>
+              </div>}
+
+            {isAdmin || loggedUser && loggedUser._id === eachPlan.project.owner._id ?
+              <div className='d-flex justify-content-center mt-3'>
+                <Button variant='warning' onClick={() => setShowEditPlanModal(true)}>Edit</Button>
+                <Button variant='danger' onClick={() => deletePlan(eachPlan._id)}>Delete</Button>
+              </div> : null}
 
           </Card.Body>
         </Card>

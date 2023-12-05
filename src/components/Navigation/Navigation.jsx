@@ -19,7 +19,6 @@ const Navigation = () => {
               <Link to='/' className='nav-link'>Home</Link>
               <Link to='/discover' className='nav-link'>Discover</Link>
               <Link to='/community' className='nav-link'>Community</Link>
-              {loggedUser && <Link to='/project/create' className='nav-link'>Create Project</Link>}
 
               {isAdmin && (
                 <NavDropdown title='Admin Panel'>

@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Row, Col, ProgressBar, Modal, Button } from 'react-bootstrap'
 import EditProjectForm from '../EditProjectForm/EditProjectForm'
 import NewPlanForm from '../NewPlanForm/NewPlanForm'
 import userService from '../../services/user.services'
 import projectService from '../../services/projects.services'
 import { toast } from 'sonner'
+import { AuthContext } from '../../contexts/auth.context'
 
 const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
+  const { loggedUser, isAdmin } = useContext(AuthContext)
   const [showEditProjectModal, setShowEditProjectModal] = useState(false)
   const [showAddPlanModal, setShowAddPlanModal] = useState(false)
 
@@ -62,19 +64,21 @@ const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
             <p><strong>Finishing in:</strong> {project.endDate.slice(0, 10)}</p>
           </div>
 
-          <div className='mb-3'>
+          {loggedUser && <div className='mb-3'>
             <Button variant='success' onClick={() => handleFollow()}>Follow</Button>
             <Button variant='warning' onClick={() => handleUnfollow()}>Unfollow</Button>
-          </div>
+          </div>}
 
-          <div className='mb-3'>
-            <Button variant='success' onClick={() => setShowAddPlanModal(true)}>Add Plan</Button>
-            <Button variant='warning' onClick={() => setShowEditProjectModal(true)}>Edit Project</Button>
-          </div>
-          
-          <div className='mb-3'>
-            <Button variant='danger' onClick={() => deleteProject()}>Delete Project</Button>
-          </div>
+          {isAdmin || loggedUser?._id === project.owner._id ?
+            <div className='mb-3'>
+              <Button variant='success' onClick={() => setShowAddPlanModal(true)}>Add Plan</Button>
+              <Button variant='warning' onClick={() => setShowEditProjectModal(true)}>Edit Project</Button>
+            </div> : null}
+
+          {isAdmin || loggedUser?._id === project.owner._id ?
+            <div className='mb-3'>
+              <Button variant='danger' onClick={() => deleteProject()}>Delete Project</Button>
+            </div> : null}
         </Col>
       </Row>
 
@@ -96,10 +100,6 @@ const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
         </Modal.Body>
       </Modal>
     </div>
-
-
-
-
 
   )
 }

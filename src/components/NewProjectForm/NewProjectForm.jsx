@@ -6,7 +6,7 @@ import categoryService from '../../services/category.services'
 import uploadServices from '../../services/upload.services'
 import { toast } from 'sonner'
 
-const NewProjectForm = () => {
+const NewProjectForm = ({ setShowModal, loadProject }) => {
   const navigate = useNavigate()
 
   const [loadingImage, setLoadingImage] = useState(false)
@@ -49,7 +49,10 @@ const NewProjectForm = () => {
 
     projectService
       .createProject(projectData)
-      .then(() => navigate('/discover'))
+      .then(() => {
+        setShowModal(false)
+        loadProject()
+      })
       .catch(err => setErrors(err.response.data.errorMessages))
   }
 

@@ -59,14 +59,14 @@ const ProjectDetailsPage = () => {
           : <ProjectDetails project={project} loadProject={loadProject} loadPlan={loadPlan} deleteProject={deleteProject} />}
         <hr />
 
-        {!project
-          ? <Loader />
-          : <AboutProject project={project} />}
-        <hr />
-
         {!plans
           ? <Loader />
           : <PlanList plans={plans} loadPlan={loadPlan} loadProject={loadProject} deletePlan={deletePlan} />}
+        <hr />
+
+        {!project
+          ? <Loader />
+          : <AboutProject project={project} />}
       </Container>
     </div>
   )

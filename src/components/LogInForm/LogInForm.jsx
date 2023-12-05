@@ -11,8 +11,6 @@ const LogInForm = () => {
     password: ''
   })
 
-  const [errors, setErrors] = useState('')
-
   const navigate = useNavigate()
 
   const { authenticateUser } = useContext(AuthContext)
@@ -41,16 +39,13 @@ const LogInForm = () => {
         localStorage.setItem('authToken', data.authToken)
         authenticateUser()
         navigate('/discover')
+        toast.success('Logged in successfully')
       })
-      .catch(err => setErrors(err.response.data.message))
+      .catch(err => {
+        toast.error('The email or password are incorrect')
+        console.log(err)
+      })
   }
-
-  // TO-DO: solo aparece una vez?????
-  useEffect(() => {
-    if (errors) {
-      toast.error(errors)
-    }
-  }, [errors])
 
   return (
     <div className='LogInForm'>
@@ -63,12 +58,15 @@ const LogInForm = () => {
               <small className='text-muted'>We'll never share your email with anyone else.</small>
             </Form.Group>
 
-            <Form.Group className='mb-5' controlId='password'>
+            <Form.Group className='mb-3' controlId='password'>
               <Form.Label>Password</Form.Label>
               <Form.Control type='password' value={loginData.password} onChange={handleInputChange} name='password' />
             </Form.Group>
 
-            <Link to='/log-in' className='text-muted'>Forgot your password?</Link>
+            <Form.Group className='d-flex justify-content-between' controlId='remember'>
+              <Form.Label as={Link} to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'} target='_blank' className='text-muted'>Forgot your password?</Form.Label>
+              <Form.Label as={Link} to={"/sign-up"} className='text-muted'>Create a new Account</Form.Label>
+            </Form.Group>
 
             <div className='d-grid'>
               <Button variant='dark' type='submit'>Acceder</Button>

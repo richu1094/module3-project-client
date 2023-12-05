@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Form, Button, Card } from 'react-bootstrap'
 import authService from '../../services/auth.services'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 const SignUpForm = () => {
-  const [errors, setErrors] = useState([])
   const [checkbox, setCheckbox] = useState(false)
 
   const [signupData, setSignupData] = useState({
@@ -39,15 +38,15 @@ const SignUpForm = () => {
 
     authService
       .signup(signupData)
-      .then(() => navigate('/log-in'))
-      .catch(err => setErrors(err.response.data.errorMessages))
+      .then(() => {
+        navigate('/log-in')
+        toast.success('User created successfully')
+      })
+      .catch(err => {
+        console.log(err)
+        toast.error('Error creating user')
+      })
   }
-
-  useEffect(() => {
-    if (errors.length > 0) {
-      errors.forEach(err => toast.error(err, 'error'))
-    }
-  }, [errors])
 
   return (
 

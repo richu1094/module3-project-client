@@ -1,21 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Form, Button, Card, InputGroup } from 'react-bootstrap'
 import planService from '../../services/plan.services'
 import uploadServices from '../../services/upload.services'
 import { toast } from 'sonner'
 
 const NewPlanForm = ({ project, setShowAddPlanModal, loadPlan }) => {
-  // TODO: FALTAN LOS ERRORES
-
   const [loadingImage, setLoadingImage] = useState(false)
-  const [errors, setErrors] = useState([])
 
   const [planData, setPlanData] = useState({
     title: '',
     description: '',
     image: '',
     content: '',
-    price: 10000,
+    price: 0,
     project: project._id,
     isRecommended: false
   })
@@ -31,9 +28,21 @@ const NewPlanForm = ({ project, setShowAddPlanModal, loadPlan }) => {
   const handlePlanSubmit = e => {
     e.preventDefault()
 
+    const errors = []
+
+    if (planData.title.length < 3) errors.push('Title must be at least 3 characters long')
+    if (planData.description.length < 10) errors.push('Description must be at least 10 characters long')
+    if (planData.content.length < 10) errors.push('Content must be at least 10 characters long')
+    if (planData.price <= 0) errors.push('Price must be greater than 0')
+
+    if (errors.length > 0) {
+      errors.forEach(error => toast.error(error))
+      return
+    }
     planService
       .createPlan(planData)
       .then(() => {
+        toast.success('Plan created successfully')
         setShowAddPlanModal(false)
         loadPlan()
       })
@@ -57,12 +66,6 @@ const NewPlanForm = ({ project, setShowAddPlanModal, loadPlan }) => {
         setLoadingImage(false)
       })
   }
-
-  useEffect(() => {
-    if (errors.length > 0) {
-      errors.forEach(err => toast.error(err, 'error'))
-    }
-  }, [errors])
 
   return (
     <div className='NewPlanForm'>
