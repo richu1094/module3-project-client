@@ -51,6 +51,7 @@ const ProjectDetailsPage = () => {
       .catch(err => console.log(err))
   }
 
+
   return (
     <div className='ProjectDetailsPage'>
       <Container>

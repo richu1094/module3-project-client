@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Row, Col, ProgressBar, Modal, Button } from 'react-bootstrap'
 import EditProjectForm from '../EditProjectForm/EditProjectForm'
 import NewPlanForm from '../NewPlanForm/NewPlanForm'
@@ -13,6 +13,7 @@ const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
   const { loggedUser, isAdmin } = useContext(AuthContext)
   const [showEditProjectModal, setShowEditProjectModal] = useState(false)
   const [showAddPlanModal, setShowAddPlanModal] = useState(false)
+  const [renderButton, setRenderButton] = useState(false)
   const [showFollowerModal, setShowFollowerModal] = useState(false)
 
   const handleProgress = () => {
@@ -45,12 +46,22 @@ const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
       .catch(err => console.log(err))
   }
 
+  const handleFollowButton = () => {
+    project.followers.some(elm => elm._id === loggedUser?._id)
+      ? setRenderButton(false) : setRenderButton(true)
+  }
+
+  useEffect(() => {
+    handleFollowButton()
+  }, [project])
+
   const handleDate = () => {
     const date1 = new Date(project.endDate)
-    const date2 = new Date(project.createdAt)
+    const date2 = new Date()
     const diffTime = Math.abs(date2 - date1)
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    return diffDays
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60)) % 24
+    return [diffDays, diffHours]
   }
 
   return (
@@ -72,26 +83,25 @@ const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
             <p><strong>Created at:</strong> {project.createdAt.slice(0, 10)}</p>
             <p><strong>Donations Recibed:</strong> {project.supporters.length}</p>
             <p><strong>Followed by: </strong> <Link className='text-muted' onClick={() => setShowFollowerModal(true)}>{project.followers.length} users</Link></p>
-            <p><strong>Finishing in:</strong> {handleDate()} days</p>
+            <p><strong>Finishing in:</strong> {handleDate()[0]} days and {handleDate()[1]} hours.</p>
           </div>
 
-          {loggedUser && <div className='mb-3'>
-            <Button variant='success' onClick={() => handleFollow()}>Follow</Button>
-            <Button variant='warning' onClick={() => handleUnfollow()}>Unfollow</Button>
-          </div>}
+          {loggedUser && renderButton
+            ? <div className='mb-3'> <Button variant='success' onClick={() => handleFollow()}>Follow</Button></div>
+            : loggedUser && <div className='mb-3'> <Button variant='warning' onClick={() => handleUnfollow()}>Unfollow</Button></div>}
 
-          {isAdmin || loggedUser?._id === project.owner._id
-            ? <div className='mb-3'>
+          {(isAdmin || loggedUser?._id === project.owner._id) &&
+            <div className='mb-3'>
               <Button variant='success' onClick={() => setShowAddPlanModal(true)}>Add Plan</Button>
             </div>
-            : null}
+          }
 
-          {isAdmin || loggedUser?._id === project.owner._id
-            ? <div className='mb-3'>
+          {(isAdmin || loggedUser?._id === project.owner._id) &&
+            <div className='mb-3'>
               <Button variant='warning' onClick={() => setShowEditProjectModal(true)}>Edit Project</Button>
               <Button variant='danger' onClick={() => deleteProject()}>Delete Project</Button>
             </div>
-            : null}
+          }
         </Col>
       </Row>
 

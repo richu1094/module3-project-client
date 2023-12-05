@@ -1,6 +1,4 @@
 import { Accordion } from 'react-bootstrap'
-import projectService from '../../services/projects.services'
-import { useEffect, useState } from 'react'
 import Loader from '../Loader/Loader'
 import ProjectCard from '../ProjectCard/ProjectCard'
 
@@ -15,9 +13,9 @@ const AccordionList = ({ category, project }) => {
               ? <Loader />
               : project.map((eachProject, i) => {
                 return eachProject.category === elm._id
-                  ? <ProjectCard eachProject={eachProject} key={i} />
-                  : null
-              })}
+                  && <ProjectCard eachProject={eachProject} key={i} />
+              })
+            }
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

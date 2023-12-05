@@ -37,9 +37,9 @@ const Profile = ({ profile, loadProfile }) => {
                 <p><strong>Follows:</strong> {profile.following.length}</p>
                 <p><strong>Supported Projects: </strong> {profile.supported.length}</p>
                 <p><strong>User since:</strong> {profile.createdAt.slice(0, 10)}</p>
-                {isAdmin || loggedUser._id === profile._id
-                  ? <p><strong>Balance:</strong> {profile.balance}</p>
-                  : null}
+                {(isAdmin || loggedUser._id === profile._id)
+                  && <p><strong>Balance:</strong> {profile.balance}</p>
+                }
               </ListGroup.Item>
               {isAdmin || loggedUser._id === profile._id
                 && <Card.Body className='d-flex justify-content-center'>
