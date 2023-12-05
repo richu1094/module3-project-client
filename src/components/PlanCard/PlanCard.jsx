@@ -23,7 +23,8 @@ const PlanCard = ({ eachPlan, loadPlan, loadProject, deletePlan }) => {
       .getUserBalance()
       .then(({ data }) => {
         setBalance(data)
-      }).catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
   }
 
   const handleDonation = () => {

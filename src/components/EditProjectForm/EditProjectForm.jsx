@@ -13,17 +13,16 @@ const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
     description: project.description,
     image: project.image,
     goal: project.balance.goal,
+    current: project.balance.current,
     endDate: project.endDate.slice(0, 10),
     category: project.category,
     isFeatured: project.isFeatured
   })
 
-  const handleInputChange = e => {
-    const target = e.target
-    const name = target.name
-    const value = target.type === 'checkbox' ? target.checked : target.value
-
-    setProjectData({ ...projectData, [name]: value })
+  const handleInputChange = ({ target }) => {
+    const { name, type, checked, value } = target
+    const data = type === 'checkbox' ? checked : value
+    setProjectData({ ...projectData, [name]: data })
   }
 
   const handleProjectSubmit = e => {
@@ -35,6 +34,7 @@ const EditProjectForm = ({ project, setShowEditProjectModal, loadProject }) => {
     if (projectData.description.length < 3) errors.push('Description must be at least 3 characters long')
     if (projectData.goal < 1) errors.push('Goal must be at least 1')
     if (projectData.endDate.length < 1) errors.push('Date must be selected')
+    if (projectData.endDate <= new Date().toISOString().slice(0, 10)) errors.push('Date must be in the future')
     if (projectData.image.length < 1) errors.push('Image must be selected')
     if (projectData.category.length < 1) errors.push('Category must be selected')
 

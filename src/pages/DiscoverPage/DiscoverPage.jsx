@@ -15,11 +15,9 @@ const DiscoverPage = () => {
 
   useEffect(() => {
     loadCategory()
-  }, [])
-
-  useEffect(() => {
     loadProject()
   }, [])
+
 
   const loadCategory = () => {
     categoryService

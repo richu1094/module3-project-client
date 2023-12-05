@@ -42,11 +42,10 @@ const Profile = ({ profile, loadProfile }) => {
                   : null}
               </ListGroup.Item>
               {isAdmin || loggedUser._id === profile._id
-                ? <Card.Body className='d-flex justify-content-center'>
+                && <Card.Body className='d-flex justify-content-center'>
                   <Button variant='dark' onClick={() => setShowEditModal(true)}>Edit Profile</Button>
                   <Button variant='danger' onClick={deleteUser}>Delete User</Button>
-                </Card.Body>
-                : null}
+                </Card.Body>}
             </ListGroup>
           </Card>
         </Col>
