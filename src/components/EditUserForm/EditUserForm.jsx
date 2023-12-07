@@ -6,7 +6,7 @@ import uploadServices from '../../services/upload.services'
 import { toast } from 'sonner'
 
 const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
-  const { isAdmin } = useContext(AuthContext)
+  const { isAdmin, logout } = useContext(AuthContext)
   const [loadingImage, setLoadingImage] = useState(false)
 
   const [profileData, setProfileData] = useState({

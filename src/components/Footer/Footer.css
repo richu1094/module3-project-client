@@ -1,22 +1,11 @@
-/* footer {
-    align-self: flex-end;
-    background-color: #222222;
-    color: white;
-    font-size: .8em;
-    margin-top: 2em;
-    padding: .8em 0;
-    text-align: center;
-    width: 100%;
-} */
-
 footer {
     background-color: #212429;
     color: white;
-    font-size: .6em;
-    padding: 4px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    left: 0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: inherit;
 }

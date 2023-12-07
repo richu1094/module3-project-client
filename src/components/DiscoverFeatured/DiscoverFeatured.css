@@ -1,0 +1,7 @@
+.halfColorH2 {
+    display: inline-block;
+    background: linear-gradient(to right, #000000 50%, #808080 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}

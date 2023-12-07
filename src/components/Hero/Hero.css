@@ -1,0 +1,33 @@
+.hero {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.hero img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+}
+
+.hero .carousel-caption {
+    position: absolute;
+    text-align: center;
+}
+
+.hero .carousel-caption .caption-background {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.hero .carousel-caption h1 {
+    font-size: 50px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.hero .carousel-caption p {
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+}

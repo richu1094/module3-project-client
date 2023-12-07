@@ -23,7 +23,9 @@ const ProfilePage = () => {
   return (
     <div>
       <Container>
-        <h2>Profile</h2>
+        <div className='text-center my-3'>
+          <h2>Profile Page 🔎</h2>
+        </div>
         <hr />
         {!profile
           ? <Loader />

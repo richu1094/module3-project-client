@@ -1,20 +1,18 @@
 import { Accordion } from 'react-bootstrap'
 import Loader from '../Loader/Loader'
-import ProjectCard from '../ProjectCard/ProjectCard'
+import DiscoverProjectRow from '../DiscoverProjectRow/DiscoverProjectRow'
 
 const AccordionList = ({ category, project }) => {
-  return category.map((elm, i) => {
+  return category.map((eachCategory, i) => {
     return (
-      <Accordion key={i}>
+      <Accordion className='my-3' key={i}>
         <Accordion.Item eventKey={i}>
-          <Accordion.Header>{elm.title}</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Header>{eachCategory.title}</Accordion.Header>
+          <Accordion.Body className='text-center'>
+            <h5 className='mb-5'>{eachCategory.description}</h5>
             {!project
               ? <Loader />
-              : project.map((eachProject, i) => {
-                return eachProject.category === elm._id
-                  && <ProjectCard eachProject={eachProject} key={i} />
-              })
+              : <DiscoverProjectRow eachCategory={eachCategory} project={project} />
             }
           </Accordion.Body>
         </Accordion.Item>

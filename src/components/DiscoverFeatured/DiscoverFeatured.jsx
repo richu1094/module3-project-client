@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
 import Loader from '../Loader/Loader'
 import ProjectList from '../ProjectList/ProjectList'
 import ProjectService from '../../services/projects.services'
-import { Link } from 'react-router-dom'
+import './DiscoverFeatured.css'
 
 const DiscoverFeatured = () => {
   const [projects, setProjects] = useState()
@@ -20,15 +19,16 @@ const DiscoverFeatured = () => {
   }
 
   return (
-    <div className='DiscoverFeatured'>
-      <h2>Featured Projects</h2>
+    <div className='DiscoverFeatured my-4'>
+      <div>
+        <h2 className="halfColorH2">Our amazing projects. It will blow your mind.</h2>
+      </div>
       <hr />
       {
         !projects
           ? <Loader />
           : <ProjectList projects={projects} />
       }
-      <Button as={Link} to='/discover' variant='dark'>Discover More</Button>
     </div>
   )
 }

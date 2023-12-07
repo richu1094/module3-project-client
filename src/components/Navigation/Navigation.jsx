@@ -3,6 +3,8 @@ import { Container, Modal, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import AddFunds from '../AddFunds/AddFunds'
+import logo from './../../assets/img/logo/logo.png'
+import './Navigation.css'
 
 const Navigation = () => {
   const { loggedUser, isAdmin, logout } = useContext(AuthContext)
@@ -10,9 +12,11 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar expand='lg' className='bg-body-tertiary' bg='dark' data-bs-theme='dark'>
+      <Navbar expand='lg' className='bg-body-tertiary custom-navbar' bg='dark' data-bs-theme='dark'>
         <Container>
-          <Navbar.Brand>Richistarter</Navbar.Brand>
+          <Navbar.Brand>
+            <Link to='/' className='nav-link'><img src={logo} alt='logo' width='180' height='180' /></Link>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto'>

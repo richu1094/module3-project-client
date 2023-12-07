@@ -28,7 +28,7 @@ const AddFunds = ({ setShowFundsModal }) => {
       .addFunds(funds)
       .then(() => {
         setShowFundsModal(false)
-        toast.success('Funds added successfully')
+        toast.success(`You have added ${funds.balance}€ to your account`)
       })
       .catch(err => console.log(err))
   }

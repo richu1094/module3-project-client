@@ -48,28 +48,28 @@ const LogInForm = () => {
   }
 
   return (
-    <div className='LogInForm'>
-      <Card>
+    <div className='LogInForm my-5'>
+      <Card className='border-1 shadow'>
         <Card.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className='mb-3' controlId='email'>
-              <Form.Label>E-mail</Form.Label>
-              <Form.Control type='email' value={loginData.email} onChange={handleInputChange} name='email' />
-              <small className='text-muted'>We'll never share your email with anyone else.</small>
+            <Form.Group className='mt-2 mb-4' controlId='email'>
+              <Form.Label><strong>Email:</strong></Form.Label>
+              <Form.Control type='email' value={loginData.email} onChange={handleInputChange} name='email' placeholder='Type your email' />
+              <small className='text-muted'>We'll never share your personal information with anyone else.</small>
             </Form.Group>
 
-            <Form.Group className='mb-3' controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Form.Control type='password' value={loginData.password} onChange={handleInputChange} name='password' />
+            <Form.Group className='mb-4' controlId='password'>
+              <Form.Label><strong>Password:</strong></Form.Label>
+              <Form.Control type='password' value={loginData.password} onChange={handleInputChange} name='password' placeholder='Type your password' />
             </Form.Group>
 
-            <Form.Group className='d-flex justify-content-between' controlId='remember'>
+            <Form.Group className='d-flex justify-content-between mb-4' controlId='remember'>
               <Form.Label as={Link} to='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank' className='text-muted'>Forgot your password?</Form.Label>
               <Form.Label as={Link} to='/sign-up' className='text-muted'>Create a new Account</Form.Label>
             </Form.Group>
 
-            <div className='d-grid'>
-              <Button variant='dark' type='submit'>Acceder</Button>
+            <div className='text-center mb-3'>
+              <Button variant='dark' type='submit' size="lg">Log in</Button>
             </div>
           </Form>
         </Card.Body>

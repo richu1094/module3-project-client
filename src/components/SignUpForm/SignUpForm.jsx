@@ -51,31 +51,31 @@ const SignUpForm = () => {
   return (
 
     <div className='SignUpForm'>
-      <Card>
+      <Card className='border-1 shadow'>
         <Card.Body>
           <Form onSubmit={handleFormSubmit}>
             <Form.Group className='mb-3' controlId='username'>
-              <Form.Label>Username</Form.Label>
+              <Form.Label><strong>Username</strong></Form.Label>
               <Form.Control type='text' value={signupData.username} onChange={handleInputChange} name='username' />
               <small className='text-muted'>Username must be at least 3 characters long</small>
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='password'>
-              <Form.Label>Password</Form.Label>
+              <Form.Label><strong>Password</strong></Form.Label>
               <Form.Control type='password' value={signupData.password} onChange={handleInputChange} name='password' />
               <small className='text-muted'>Password must be at least 3 characters long</small>
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='email'>
-              <Form.Label>Email</Form.Label>
+              <Form.Label><strong>Email</strong></Form.Label>
               <Form.Control type='email' value={signupData.email} onChange={handleInputChange} name='email' />
-              <small className='text-muted'>We'll never share your email with anyone else.</small>
+              <small className='text-muted'>We'll never share your personal information with anyone.</small>
             </Form.Group>
 
             <Form.Check className='mb-5' type='checkbox' label='I agree to the Terms and Conditions' onChange={() => setCheckbox(!checkbox)} />
 
-            <div className='d-grid'>
-              <Button className='btn btn-dark' type='submit'>Create Account</Button>
+            <div className='text-center'>
+              <Button className='btn btn-dark mx-2'size='lg' type='submit'>Create Account</Button>
             </div>
 
           </Form>

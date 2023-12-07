@@ -6,6 +6,7 @@ import Loader from '../../components/Loader/Loader'
 import AccordionList from '../../components/AccordionList/AccordionList'
 import NewProjectForm from '../../components/NewProjectForm/NewProjectForm'
 import projectService from '../../services/projects.services'
+import { IoIosAddCircle } from "react-icons/io";
 
 const DiscoverPage = () => {
   const { loggedUser } = useContext(AuthContext)
@@ -35,20 +36,17 @@ const DiscoverPage = () => {
 
   return (
     <>
-      <div className='DiscoverPage'>
+      <div className='DiscoverPage my-4'>
         <Container>
-          <h2>Discover</h2>
-          <hr />
           {loggedUser &&
             <div className='d-flex justify-content-end mb-3'>
-              <Button variant='dark' onClick={() => setShowModal(true)}>Create Project</Button>
+              <Button variant='dark' onClick={() => setShowModal(true)}>Create Project <IoIosAddCircle /></Button>
             </div>}
           {
             !category
               ? <Loader />
               : <AccordionList category={category} project={project} />
           }
-          <hr />
         </Container>
       </div>
       <Modal show={showModal} onHide={() => setShowModal(false)}>

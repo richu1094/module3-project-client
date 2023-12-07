@@ -4,6 +4,7 @@ import categoryService from '../../services/category.services'
 import { useEffect, useState } from 'react'
 import CategoryModalForm from '../../components/CategoryModalForm/CategoryModalForm'
 import Loader from '../../components/Loader/Loader'
+import { IoIosAddCircle } from "react-icons/io";
 
 const CategoryPage = () => {
   const [category, setCategory] = useState()
@@ -21,19 +22,17 @@ const CategoryPage = () => {
   }
 
   return (
-    <div className='NewCategoryPage'>
+    <div className='NewCategoryPage my-4'>
       <Container>
-        <h1>Category</h1>
-        <hr />
-        <Button className='btn btn-dark' onClick={() => setShowModal(true)}>Create Category</Button>
+        <div className='d-flex justify-content-end mb-3'>
+          <Button className='btn btn-dark' onClick={() => setShowModal(true)}>Create Category <IoIosAddCircle /></Button>
+        </div>
         {
-                    !category
-                      ? <Loader />
-                      : <CategoryList category={category} loadCategory={loadCategory} />
-                }
-
+          !category
+            ? <Loader />
+            : <CategoryList category={category} loadCategory={loadCategory} />
+        }
         <CategoryModalForm showModal={showModal} setShowModal={setShowModal} loadCategory={loadCategory} type='Create' />
-
       </Container>
     </div>
   )
