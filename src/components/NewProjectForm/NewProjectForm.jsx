@@ -141,8 +141,8 @@ const NewProjectForm = ({ setShowModal, loadProject }) => {
             </Form.Group>
 
             <div className='text-center'>
-              <Button variant='dark' type='submit' disabled={loadingImage}>{loadingImage ? 'Loading...' : 'Create project'}</Button>
-              <Button variant='dark' type='button' onClick={() => setShowModal(false)}>Cancel</Button>
+              <Button className='mx-2' variant='dark' type='submit' disabled={loadingImage}>{loadingImage ? 'Loading...' : 'Create project'}</Button>
+              <Button className='mx-2' variant='dark' type='button' onClick={() => setShowModal(false)}>Cancel</Button>
             </div>
           </Form>
         </Card.Body>

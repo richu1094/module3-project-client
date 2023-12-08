@@ -5,7 +5,7 @@ const PlanList = ({ plans, loadPlan, loadProject, deletePlan }) => {
   return (
     <div className='PlanList'>
       <div className='text-center'>
-        <h2>Rewards</h2>
+        <h2><strong>Rewards💰</strong></h2>
       </div>
       <hr />
       <Row>

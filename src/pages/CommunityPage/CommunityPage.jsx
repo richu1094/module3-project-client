@@ -21,7 +21,7 @@ const CommunityPage = () => {
   return (
     <div className='CommunityPage my-4 text-center'>
       <Container>
-        <h2>Our Wonderful Community 🌍</h2>
+        <h2><strong>Our Wonderful Community 🌍</strong></h2>
         <hr />
         {!usersData
           ? <Loader />

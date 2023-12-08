@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Row, Col, ProgressBar, Modal, Button } from 'react-bootstrap'
+import { Row, Col, ProgressBar, Modal, Button, Card } from 'react-bootstrap'
 import EditProjectForm from '../EditProjectForm/EditProjectForm'
 import NewPlanForm from '../NewPlanForm/NewPlanForm'
 import userService from '../../services/user.services'
@@ -8,6 +8,11 @@ import { toast } from 'sonner'
 import { AuthContext } from '../../contexts/auth.context'
 import { Link } from 'react-router-dom'
 import FollowersList from '../FollowersList/FollowersList'
+import { RiUserUnfollowFill } from "react-icons/ri";
+import { RiUserFollowFill } from "react-icons/ri";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
   const { loggedUser, isAdmin } = useContext(AuthContext)
@@ -65,43 +70,45 @@ const ProjectDetails = ({ project, loadProject, loadPlan, deleteProject }) => {
   }
 
   return (
-    <div>
+    <div className='my-4'>
       <div className='text-center'>
-        <h2>{project.title}</h2>
+        <h2><strong>{project.title}</strong></h2>
       </div>
       <hr />
-      <Row>
+      <Row className='align-items-center'>
         <Col className='col-md-6'>
           <img src={project.image} alt={project.title} className='img-fluid' />
         </Col>
         <Col className='col-md-6'>
-          <div>
-            <ProgressBar variant='success' animated now={handleProgress()} label={`${handleProgress()}%`} />
-            <p><strong>Current balance:</strong> {project.balance.current}€</p>
-            <p><strong>Goal:</strong> {project.balance.goal}€</p>
-            <p><strong>Description:</strong> {project.description}</p>
-            <p><strong>Created at:</strong> {project.createdAt.slice(0, 10)}</p>
-            <p><strong>Donations Recibed:</strong> {project.supporters.length}</p>
-            <p><strong>Followed by: </strong> <Link className='text-muted' onClick={() => setShowFollowerModal(true)}>{project.followers.length} users</Link></p>
-            <p><strong>Finishing in:</strong> {handleDate()[0]} days and {handleDate()[1]} hours.</p>
-          </div>
-
-          {loggedUser && renderButton
-            ? <div className='mb-3'> <Button variant='success' onClick={() => handleFollow()}>Follow</Button></div>
-            : loggedUser && <div className='mb-3'> <Button variant='warning' onClick={() => handleUnfollow()}>Unfollow</Button></div>}
-
-          {(isAdmin || loggedUser?._id === project.owner._id) &&
-            <div className='mb-3'>
-              <Button variant='success' onClick={() => setShowAddPlanModal(true)}>Add Plan</Button>
+          <Card className='p-4'>
+            <div >
+              <ProgressBar variant='success' animated now={handleProgress()} label={`${handleProgress()}%`} />
+              <p><strong>Current balance:</strong> {project.balance.current}€</p>
+              <p><strong>Goal:</strong> {project.balance.goal}€</p>
+              <p><strong>Description:</strong> {project.description}</p>
+              <p><strong>Created at:</strong> {project.createdAt.slice(0, 10)}</p>
+              <p><strong>Donations Recibed:</strong> {project.supporters.length}</p>
+              <p><strong>Followed by: </strong> <Link className='text-muted' onClick={() => setShowFollowerModal(true)}>{project.followers.length} users</Link></p>
+              <p><strong>Finishing in:</strong> {handleDate()[0]} days and {handleDate()[1]} hours.</p>
             </div>
-          }
 
-          {(isAdmin || loggedUser?._id === project.owner._id) &&
-            <div className='mb-3'>
-              <Button variant='warning' onClick={() => setShowEditProjectModal(true)}>Edit Project</Button>
-              <Button variant='danger' onClick={() => deleteProject()}>Delete Project</Button>
-            </div>
-          }
+            {loggedUser && renderButton
+              ? <div className='mb-3'> <Button variant='dark' onClick={() => handleFollow()}>Follow <RiUserFollowFill /></Button></div>
+              : loggedUser && <div className='mb-3'> <Button variant='dark' onClick={() => handleUnfollow()}>Unfollow <RiUserUnfollowFill /></Button></div>}
+
+            {(isAdmin || loggedUser?._id === project.owner._id) &&
+              <div className='mb-3'>
+                <Button variant='dark' onClick={() => setShowAddPlanModal(true)}>Add Plan <IoAddCircleOutline /></Button>
+              </div>
+            }
+
+            {(isAdmin || loggedUser?._id === project.owner._id) &&
+              <div className='mb-3'>
+                <Button className='mr-2' variant="outline-warning" onClick={() => setShowEditProjectModal(true)}>Edit Project <FaEdit /></Button>
+                <Button className='mx-2' variant="outline-danger" onClick={() => deleteProject()}>Delete Project <MdDeleteOutline /></Button>
+              </div>
+            }
+          </Card>
         </Col>
       </Row>
 

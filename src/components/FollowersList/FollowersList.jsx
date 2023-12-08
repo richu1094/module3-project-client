@@ -5,7 +5,7 @@ const FollowersList = ({ project, setShowFollowerModal }) => {
     return (
         <div className="FollowersList">
             <ul>
-                {project.followers.map(elm => <li className="mb-3">{elm.username} <Button variant="outline-dark" size="sm" as={Link} to={`/profile/${elm._id}`}>View Profile</Button></li>)}
+                {project.followers.map(elm => <li className="mb-3" key={elm._id}>{elm.username} <Button variant="outline-dark" size="sm" as={Link} to={`/profile/${elm._id}`}>View Profile</Button></li>)}
             </ul>
             <div className="text-center">
                 <Button variant="dark" size="sm" onClick={() => setShowFollowerModal(false)}>Close</Button>

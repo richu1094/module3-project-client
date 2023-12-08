@@ -24,7 +24,7 @@ const ProfilePage = () => {
     <div>
       <Container>
         <div className='text-center my-3'>
-          <h2>Profile Page 🔎</h2>
+          <h2><strong>Profile Page 🔎</strong></h2>
         </div>
         <hr />
         {!profile

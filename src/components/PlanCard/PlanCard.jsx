@@ -5,7 +5,11 @@ import userService from '../../services/user.services'
 import projectService from '../../services/projects.services'
 import { AuthContext } from '../../contexts/auth.context'
 import { useNavigate } from 'react-router-dom'
+import './PlanCard.css'
 import { toast } from 'sonner'
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 const PlanCard = ({ eachPlan, loadPlan, loadProject, deletePlan }) => {
   const { loggedUser, isAdmin } = useContext(AuthContext)
@@ -48,9 +52,9 @@ const PlanCard = ({ eachPlan, loadPlan, loadProject, deletePlan }) => {
 
   return (
     <>
-      <Col sm={12} md={4}>
-        <Card className='mb-4'>
-          <Card.Img variant='top' src={eachPlan.image} />
+      <Col sm={12} md={4} className='my-4'>
+        <Card className={(eachPlan.isRecommended === true) ? "border border-dark border-4 h-100" : "h-100"}>
+          <Card.Img className='card-img-top' variant='top' src={eachPlan.image} />
           <Card.Body>
             <div className='d-flex justify-content-center'>
               <Card.Title>{eachPlan.title}</Card.Title>
@@ -59,22 +63,21 @@ const PlanCard = ({ eachPlan, loadPlan, loadProject, deletePlan }) => {
             <Card.Text><strong>Amount:</strong> {eachPlan.price}€</Card.Text>
             <Card.Text><strong>Content:</strong> {eachPlan.content}</Card.Text>
             {!loggedUser &&
-              <div className='d-flex justify-content-center'>
+              <div className='text-center my-4'>
                 <Button variant='success' onClick={() => navigate('/log-in')}>Donate</Button>
               </div>}
 
             {loggedUser &&
-              <div className='d-flex justify-content-center mb-3'>
-                <Button variant='success' onClick={() => handleDonation()}>Donate</Button>
+              <div className='text-center my-4'>
+                <Button variant='success' onClick={() => handleDonation()}>Donate <FaRegMoneyBillAlt /></Button>
               </div>}
 
             {isAdmin || loggedUser && loggedUser._id === eachPlan.project.owner._id
-              ? <div className='d-flex justify-content-center mb-3'>
-                <Button variant='warning' onClick={() => setShowEditPlanModal(true)}>Edit</Button>
-                <Button variant='danger' onClick={() => deletePlan(eachPlan._id)}>Delete</Button>
+              ? <div className='text-center my-4'>
+                <Button className='mx-2' variant='warning' onClick={() => setShowEditPlanModal(true)}>Edit <FaEdit /></Button>
+                <Button className='mx-2' variant='danger' onClick={() => deletePlan(eachPlan._id)}>Delete <MdDeleteOutline /></Button>
               </div>
               : null}
-
           </Card.Body>
         </Card>
       </Col>

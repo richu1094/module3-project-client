@@ -13,7 +13,7 @@ const EditUserForm = ({ setShowEditModal, profile, loadProfile }) => {
     username: profile.username,
     description: profile.description,
     email: profile.email,
-    avatar: profile.avatar || 'https://res.cloudinary.com/dv7hswrot/image/upload/v1619680312/userDefaultIcon_qvyjtz.png',
+    avatar: profile.avatar || 'https://res.cloudinary.com/db6gxc2n0/image/upload/v1701465381/ifhpblqmxlbi2ir0jw5u.png',
     role: profile.role,
     balance: profile.balance,
     location: profile.location

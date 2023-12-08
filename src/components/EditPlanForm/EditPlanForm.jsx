@@ -85,9 +85,9 @@ const EditPlanForm = ({ eachPlan, setShowEditPlanModal, loadPlan }) => {
 
             <Form.Check className='mb-3' type='checkbox' label='Is Recommended?' name='isRecommended' checked={planData.isRecommended} onChange={handleInputChange} />
 
-            <div className='d-flex justify-content-center'>
-              <Button variant='dark' type='submit' disabled={loadingImage}>{loadingImage ? 'Loading...' : 'Edit Plan'}</Button>
-              <Button variant='dark' onClick={() => setShowEditPlanModal(false)}>Cancel</Button>
+            <div className='text-center'>
+              <Button className='mx-2' variant='dark' type='submit' disabled={loadingImage}>{loadingImage ? 'Loading...' : 'Edit Plan'}</Button>
+              <Button className='mx-2' variant='dark' onClick={() => setShowEditPlanModal(false)}>Cancel</Button>
             </div>
 
           </Form>

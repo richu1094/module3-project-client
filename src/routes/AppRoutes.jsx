@@ -8,6 +8,7 @@ import DiscoverPage from '../pages/DiscoverPage/DiscoverPage'
 import ProtectedRoute from './ProtectedRoute'
 import ProfilePage from '../pages/ProfilePage/ProfilePage'
 import CommunityPage from '../pages/CommunityPage/CommunityPage'
+import ErrorPage from '../pages/ErrorPage/ErrorPage'
 
 const AppRoutes = () => {
   return (
@@ -21,12 +22,14 @@ const AppRoutes = () => {
       <Route path='/sign-up' element={<SignUpPage />} />
       <Route path='/log-in' element={<LogInPage />} />
 
+      <Route path='/project/undefined' element={<DiscoverPage />} />
+
       <Route element={<ProtectedRoute />}>
         <Route path='/profile/:id' element={<ProfilePage />} />
         <Route path='/category' element={<CategoryPage />} />
       </Route>
 
-      <Route path='*' element={<img src='https://i.emezeta.com/weblog/meme-la-cosa/cosa-no-pinta-nada-bien.jpg' />} />
+      <Route path='*' element={<ErrorPage />} />
     </Routes>
   )
 }

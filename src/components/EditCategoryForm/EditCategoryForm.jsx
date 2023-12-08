@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import categoryService from '../../services/category.services'
+import { toast } from 'sonner'
 
 const EditCategoryForm = ({ setShowModal, loadCategory, eachCategory }) => {
   const [categoryData, setCategoryData] = useState({
@@ -15,6 +16,17 @@ const EditCategoryForm = ({ setShowModal, loadCategory, eachCategory }) => {
 
   const handleCategorySubmit = e => {
     e.preventDefault()
+
+    const errors = []
+
+    if (categoryData.title.length < 3) errors.push('Title must be at least 3 characters long')
+    if (categoryData.description.length < 3) errors.push('Description must be at least 3 characters long')
+
+    if (errors.length > 0) {
+      errors.forEach(error => toast.error(error))
+      return
+    }
+
     categoryService
       .editCategory(eachCategory._id, categoryData)
       .then(() => {
